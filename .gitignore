@@ -1,0 +1,29 @@
+# Environment
+.env
+*.env
+
+# Database
+database/*.db
+database/*.sqlite3
+
+# ML models
+ml_models/*.pkl
+ml_models/*.joblib
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports generated at runtime
+reports/*.pdf
