@@ -5,30 +5,40 @@ Password hashing and authentication-related security helpers.
 
 IMPORTANT:
 - Passwords are NEVER stored in plain text.
-- The password-health analyzer (services/password_service.py) never
-  calls anything in this file that would persist a raw password -
-  it only ever stores the numeric score/strength/timestamp.
+- Uses bcrypt directly instead of passlib.
 """
 
-from passlib.context import CryptContext
-
-# bcrypt via passlib - industry-standard adaptive hashing.
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
 
 
 def hash_password(plain_password: str) -> str:
-    """Hash a plain-text password for storage. Never store the raw value."""
+    """
+    Hash a plain-text password for storage.
+    """
     if not plain_password:
         raise ValueError("Password cannot be empty.")
-    return pwd_context.hash(plain_password)
+
+    # Generate bcrypt hash and return it as a string
+    hashed = bcrypt.hashpw(
+        plain_password.encode("utf-8"),
+        bcrypt.gensalt()
+    )
+
+    return hashed.decode("utf-8")
 
 
 def verify_password(plain_password: str, password_hash: str) -> bool:
-    """Verify a plain-text password against a stored bcrypt hash."""
+    """
+    Verify a plain-text password against a stored bcrypt hash.
+    """
     if not plain_password or not password_hash:
         return False
+
     try:
-        return pwd_context.verify(plain_password, password_hash)
-    except Exception:
-        # Malformed hash or verification error -> treat as failed auth
+        return bcrypt.checkpw(
+            plain_password.encode("utf-8"),
+            password_hash.encode("utf-8")
+        )
+    except (ValueError, TypeError):
+        # Invalid hash or verification error
         return False

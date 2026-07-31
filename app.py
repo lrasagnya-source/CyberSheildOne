@@ -49,51 +49,6 @@ st.set_page_config(
 
 apply_custom_styles()
 
-DARK_THEME_CSS = """
-<style>
-    .stApp {
-        background-color: #0b0f19;
-        color: #e5e7eb;
-    }
-    section[data-testid="stSidebar"] {
-        background-color: #0f1420;
-        border-right: 1px solid #1f2937;
-    }
-    div[data-testid="stMetric"] {
-        background-color: #131a2b;
-        border: 1px solid #1f2937;
-        border-radius: 12px;
-        padding: 14px 16px;
-    }
-    .cs-card {
-        background-color: #131a2b;
-        border: 1px solid #1f2937;
-        border-radius: 14px;
-        padding: 18px 20px;
-        margin-bottom: 14px;
-    }
-    .cs-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #38bdf8;
-    }
-    .cs-subtitle {
-        color: #9ca3af;
-        font-size: 0.95rem;
-    }
-    .stButton>button {
-        background-color: #2563eb;
-        color: white;
-        border-radius: 8px;
-        border: none;
-        font-weight: 600;
-    }
-    .stButton>button:hover {
-        background-color: #1d4ed8;
-    }
-</style>
-"""
-st.markdown(DARK_THEME_CSS, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------
 # DB INIT (idempotent)
