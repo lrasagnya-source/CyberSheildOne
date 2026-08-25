@@ -40,5 +40,5 @@ def verify_password(plain_password: str, password_hash: str) -> bool:
             password_hash.encode("utf-8")
         )
     except (ValueError, TypeError):
-        # Invalid hash or verification error
+        # Invalid hash or verification errors
         return False
