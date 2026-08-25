@@ -76,7 +76,7 @@ if st.button("🔍 Scan QR Code"):
                 )
 
                 # Analyze URL using existing URL service
-                result = analyze_url(
+                result = detect_fake_url(
                     extracted_data
                 )
 
