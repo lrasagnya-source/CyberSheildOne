@@ -4,7 +4,7 @@ import streamlit as st
 
 from services.qr_service import decode_qr_image
 
-from services.url_service import analyze_url
+from services.url_service import detect_fake_url
 
 
 st.title("📱 QR Code Security Scanner")

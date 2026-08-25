@@ -1,27 +1,29 @@
-# services/qr_service.py
-
 import cv2
 import numpy as np
 
 
 def decode_qr_image(uploaded_file):
+    """
+    Decode a QR code from an uploaded image.
+
+    Returns:
+        dict containing success, data, and message.
+    """
 
     try:
-
-        # Read uploaded file bytes
+        # Read uploaded file
         file_bytes = np.asarray(
             bytearray(uploaded_file.read()),
             dtype=np.uint8
         )
 
-        # Convert bytes into image
+        # Convert bytes to OpenCV image
         image = cv2.imdecode(
             file_bytes,
             cv2.IMREAD_COLOR
         )
 
         if image is None:
-
             return {
                 "success": False,
                 "data": None,
@@ -29,17 +31,17 @@ def decode_qr_image(uploaded_file):
             }
 
         # Create QR detector
-        qr_detector = cv2.QRCodeDetector()
+        detector = cv2.QRCodeDetector()
 
-        # Decode QR code
-        data, points, _ = qr_detector.detectAndDecode(image)
+        # Detect and decode QR
+        data, points, _ = detector.detectAndDecode(image)
 
+        # Check result
         if not data:
-
             return {
                 "success": False,
                 "data": None,
-                "message": "No QR code was detected in the image."
+                "message": "No valid QR code was detected."
             }
 
         return {
@@ -49,7 +51,6 @@ def decode_qr_image(uploaded_file):
         }
 
     except Exception as error:
-
         return {
             "success": False,
             "data": None,
